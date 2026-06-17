@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+aiofiles
+pandas
+numpy
+pydantic
+python-multipart
+rapidfuzz
+openai
+python-dotenv
+requests

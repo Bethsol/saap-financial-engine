@@ -1,0 +1,22 @@
+Buchungsdatum;Beschreibung;Konto;Betrag;Währung
+04.01.2026;Rechnung Kunde Müller GmbH;Umsatz;18500,00;EUR
+06.01.2026;Gehälter Januar;Gehälter;-12400,00;EUR
+09.01.2026;Google Werbung Kampagne;Werbung;-1750,00;EUR
+13.01.2026;Büromiete Berlin;Miete;-3200,00;EUR
+17.01.2026;Rechnung Kunde Schmidt AG;Umsatz;15800,00;EUR
+21.01.2026;Software Abonnement Office;Abonnements;-280,00;EUR
+26.01.2026;DHL Versand;Versand;-490,00;EUR
+03.02.2026;Rechnung Kunde Weber KG;Umsatz;21200,00;EUR
+06.02.2026;Gehälter Februar;Gehälter;-12700,00;EUR
+10.02.2026;Facebook Werbung;Werbung;-2100,00;EUR
+13.02.2026;Büromiete Berlin;Miete;-3200,00;EUR
+18.02.2026;Rechnung Kunde Müller GmbH;Umsatz;17400,00;EUR
+22.02.2026;Software Lizenzen Adobe;Abonnements;-410,00;EUR
+26.02.2026;Versandkosten Hermes;Versand;-560,00;EUR
+03.03.2026;Rechnung Kunde Lange GmbH;Umsatz;19800,00;EUR
+06.03.2026;Gehälter März;Gehälter;-13200,00;EUR
+11.03.2026;LinkedIn Werbung;Werbung;-2680,00;EUR
+13.03.2026;Büromiete Berlin;Miete;-3200,00;EUR
+19.03.2026;Rechnung Kunde Schmidt AG;Umsatz;16200,00;EUR
+23.03.2026;Software Hosting AWS;Abonnements;-720,00;EUR
+27.03.2026;UPS Versand;Versand;-640,00;EUR

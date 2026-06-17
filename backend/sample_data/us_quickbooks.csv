@@ -1,0 +1,23 @@
+Date,Description,Account,Amount,Currency
+01/04/2026,Client invoice - Acme Corp,Sales,15200.00,USD
+01/06/2026,Payroll - January cycle,Payroll,-9800.00,USD
+01/08/2026,Google Ads campaign,Advertising,-1450.00,USD
+01/12/2026,Office rent,Rent,-2800.00,USD
+01/15/2026,Client invoice - Beta LLC,Revenue,12300.00,USD
+01/18/2026,SaaS subscription - Notion,Software,-180.00,USD
+01/22/2026,Shipping costs,Shipping,-340.00,USD
+01/28/2026,Client invoice - Gamma Inc,Sales,18500.00,USD
+02/02/2026,Payroll - February cycle,Payroll,-10100.00,USD
+02/06/2026,Facebook Ads,Advertising,-1820.00,USD
+02/12/2026,Office rent,Rent,-2800.00,USD
+02/15/2026,Client invoice - Delta Co,Sales,14600.00,USD
+02/19/2026,SaaS subscription - Slack,Software,-220.00,USD
+02/24/2026,UPS shipping,Shipping,-410.00,USD
+02/28/2026,Client invoice - Epsilon Ltd,Sales,16400.00,USD
+03/04/2026,Payroll - March cycle,Payroll,-10500.00,USD
+03/08/2026,LinkedIn Ads,Advertising,-2350.00,USD
+03/12/2026,Office rent,Rent,-2800.00,USD
+03/15/2026,Client invoice - Zeta Inc,Revenue,13800.00,USD
+03/19/2026,SaaS subscription - AWS,Software,-680.00,USD
+03/26/2026,FedEx shipping,Shipping,-520.00,USD
+03/30/2026,Client invoice - Acme Corp,Sales,17200.00,USD

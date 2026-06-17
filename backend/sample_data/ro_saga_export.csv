@@ -1,0 +1,25 @@
+Data;Descriere;Cont;Suma;Moneda
+03/01/2026;Factura client SC ABC SRL;Venituri;42500,00;RON
+05/01/2026;Plata salarii ianuarie;Salarii;-28000,00;RON
+07/01/2026;Campanie Google Ads;Publicitate;-3200,00;RON
+12/01/2026;Combustibil flota;Combustibil;-1850,00;RON
+15/01/2026;Chirie sediu central;Chirie;-6500,00;RON
+18/01/2026;Factura client SC XYZ SRL;Venituri;38900,00;RON
+22/01/2026;Abonament software contabilitate;Abonamente;-450,00;RON
+28/01/2026;Curier DHL;Transport;-720,00;RON
+02/02/2026;Factura client Retail Plus;Vanzari;51200,00;RON
+05/02/2026;Plata salarii februarie;Salarii;-29500,00;RON
+08/02/2026;Facebook Ads campanie;Publicitate;-4100,00;RON
+14/02/2026;Combustibil flota;Combustibil;-2050,00;RON
+15/02/2026;Chirie sediu central;Chirie;-6500,00;RON
+21/02/2026;Factura client Tech Solutions;Venituri;47800,00;RON
+25/02/2026;Abonament CRM;Abonamente;-650,00;RON
+28/02/2026;Servicii curierat lunare;Transport;-880,00;RON
+03/03/2026;Factura client SC ABC SRL;Venituri;45100,00;RON
+05/03/2026;Plata salarii martie;Salarii;-31200,00;RON
+09/03/2026;LinkedIn Ads;Publicitate;-5300,00;RON
+13/03/2026;Combustibil flota;Combustibil;-2280,00;RON
+15/03/2026;Chirie sediu central;Chirie;-6500,00;RON
+20/03/2026;Factura client Retail Plus;Vanzari;39500,00;RON
+24/03/2026;Abonament hosting cloud;Abonamente;-820,00;RON
+29/03/2026;Curier intern lunar;Transport;-950,00;RON
