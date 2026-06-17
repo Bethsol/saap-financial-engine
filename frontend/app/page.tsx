@@ -21,7 +21,7 @@ export default function Dashboard() {
     if (mode !== "sample") return;
     const ctrl = new AbortController();
     setLoading(true); setErr(null); setData(null);
-    fetch(`http://localhost:8000/dashboard/sample?source=${source}`, { signal: ctrl.signal })
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE}/dashboard/sample?source=${source}`, { signal: ctrl.signal })
       .then(r => { if (!r.ok) throw new Error("API " + r.status); return r.json(); })
       .then(setData).catch(e => { if (e.name !== "AbortError") setErr(e.message); }).finally(() => setLoading(false));
     return () => ctrl.abort();
@@ -30,7 +30,7 @@ export default function Dashboard() {
     setLoading(true); setErr(null); setData(null); setUploadedFile(file);
     try {
       const form = new FormData(); form.append("file", file);
-      const res = await fetch("http://localhost:8000/ingest", { method: "POST", body: form });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE}/ingest`, { method: "POST", body: form });
       if (!res.ok) throw new Error("API " + res.status);
       setData(await res.json());
     } catch (e: any) { setErr(e.message); } finally { setLoading(false); }
