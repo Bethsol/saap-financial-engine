@@ -1,6 +1,5 @@
 fastapi
 uvicorn[standard]
-aiofiles
 pandas
 numpy
 pydantic
@@ -9,3 +8,5 @@ rapidfuzz
 openai
 python-dotenv
 requests
+bcrypt
+pyjwt

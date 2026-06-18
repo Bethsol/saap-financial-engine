@@ -3,9 +3,11 @@ FastAPI entrypoint for the Financial Intelligence Engine.
 
 Endpoints:
     GET  /health                 - liveness
-    POST /ingest                 - upload a CSV (multipart) and get back a normalized snapshot
-    GET  /dashboard/sample       - run the full pipeline against bundled sample data
-    POST /analyze                - run on a JSON-supplied list of transactions
+    POST /signup                 - create a new account
+    POST /login                  - authenticate, get a token
+    POST /ingest                 - upload a CSV (multipart), requires auth
+    GET  /dashboard/sample       - run the full pipeline against bundled sample data, requires auth
+    POST /analyze                - run on a JSON-supplied list of transactions, requires auth
 
 Run locally:
     uvicorn main:app --reload --port 8000
@@ -18,11 +20,19 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import Depends, FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
+from auth import (
+    AuthResponse,
+    LoginRequest,
+    SignupRequest,
+    get_current_user,
+    init_db,
+    login as auth_login,
+    signup as auth_signup,
+)
 from ingestion import ingest_csv
 from metrics import compute_kpis
 from normalization import normalize
@@ -31,11 +41,10 @@ from synthesis import generate_insights
 
 app = FastAPI(
     title="SaaP Financial Intelligence Engine",
-    version="0.1.0",
+    version="0.2.0",
     description="Prototype for: 'Architecting a Global SaaP Framework' (thesis 2026).",
 )
 
-# Permissive CORS for the local Next.js dev server.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -45,14 +54,42 @@ app.add_middleware(
 
 SAMPLE_DIR = Path(__file__).parent / "sample_data"
 
+init_db()
+
 
 @app.get("/health")
 def health() -> dict[str, str]:
     return {"status": "ok", "ai": "live" if os.getenv("OPENAI_API_KEY") else "stub"}
 
 
+# ---------------------------------------------------------------------------
+# Auth endpoints
+# ---------------------------------------------------------------------------
+
+@app.post("/signup", response_model=AuthResponse)
+def signup(req: SignupRequest) -> AuthResponse:
+    return auth_signup(req)
+
+
+@app.post("/login", response_model=AuthResponse)
+def login(req: LoginRequest) -> AuthResponse:
+    return auth_login(req)
+
+
+@app.get("/me")
+def me(user: dict = Depends(get_current_user)) -> dict:
+    return user
+
+
+# ---------------------------------------------------------------------------
+# Protected business endpoints
+# ---------------------------------------------------------------------------
+
 @app.post("/ingest")
-async def ingest(file: UploadFile = File(...)) -> dict[str, Any]:
+async def ingest(
+    file: UploadFile = File(...),
+    user: dict = Depends(get_current_user),
+) -> dict[str, Any]:
     if not file.filename or not file.filename.lower().endswith(".csv"):
         raise HTTPException(400, "Please upload a .csv file.")
     content = await file.read()
@@ -73,7 +110,10 @@ async def ingest(file: UploadFile = File(...)) -> dict[str, Any]:
 
 
 @app.get("/dashboard/sample")
-def dashboard_sample(source: str = "ro_saga_export.csv") -> dict[str, Any]:
+def dashboard_sample(
+    source: str = "ro_saga_export.csv",
+    user: dict = Depends(get_current_user),
+) -> dict[str, Any]:
     """Run the full pipeline against one of the bundled sample files."""
     path = SAMPLE_DIR / source
     if not path.exists():
@@ -100,7 +140,10 @@ class TransactionIn(BaseModel):
 
 
 @app.post("/analyze")
-def analyze(transactions: list[TransactionIn]) -> dict[str, Any]:
+def analyze(
+    transactions: list[TransactionIn],
+    user: dict = Depends(get_current_user),
+) -> dict[str, Any]:
     df = pd.DataFrame([t.model_dump() for t in transactions])
     df["transaction_date"] = pd.to_datetime(df["transaction_date"])
     df["amount"] = df["amount"].abs()
@@ -108,12 +151,3 @@ def analyze(transactions: list[TransactionIn]) -> dict[str, Any]:
     snapshot = compute_kpis(normalized)
     insights = generate_insights(snapshot)
     return {"metrics": snapshot.to_dict(), "insights": insights}
-
-
-# Serve the pre-built Next.js static export only in production.
-# Set SERVE_FRONTEND=1 to activate (Dockerfile does this automatically).
-# Local dev keeps port 8000 as API-only so the Next.js dev server on :3000
-# remains the frontend.
-_FRONTEND = Path(__file__).parent / "frontend_out"
-if os.getenv("SERVE_FRONTEND") == "1" and _FRONTEND.exists():
-    app.mount("/", StaticFiles(directory=str(_FRONTEND), html=True), name="frontend")
