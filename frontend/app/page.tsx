@@ -49,7 +49,7 @@ type Mode = "sample" | "upload";
 
 function authHeaders() {
   const token = typeof window !== "undefined" ? localStorage.getItem("saap_token") : null;
-  return token ? { Authorization: `Bearer ${token}` } : {};
+  return token ? { Authorization: `Bearer ${token}` } : ({} as Record<string, string>);
 }
 
 export default function Dashboard() {
